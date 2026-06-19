@@ -3,3 +3,4 @@ minsearch>=0.0.11
 openai>=2.36.0
 jupyter>=1.1.1
 python-dotenv>=1.2.2
+gitsource==0.0.5
