@@ -22,3 +22,7 @@ build/
 /tmp/
 logs/runs
 logs/*.log
+faq.db*
+*.db
+*.db-shm
+*.db-wal
