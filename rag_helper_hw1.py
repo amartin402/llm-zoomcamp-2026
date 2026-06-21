@@ -74,6 +74,12 @@ class RAGBase:
 
     #     return response.output_text
 
+    # def rag(self, query):
+    #     search_results = self.search(query)
+    #     prompt = self.build_prompt(query, search_results)
+    #     answer = self.llm(prompt)
+    #     return answer
+
     def llm(self, prompt):
         input_messages = [
             {'role': 'developer', 'content': self.instructions},
@@ -85,19 +91,14 @@ class RAGBase:
             input=input_messages
         )
 
-        return response.output_text, response.usage
+        return response.output_text, response.usage  # ← tuple returned here
 
-    # def rag(self, query):
-    #     search_results = self.search(query)
-    #     prompt = self.build_prompt(query, search_results)
-    #     answer = self.llm(prompt)
-    #     return answer
 
     def rag(self, query):
         search_results = self.search(query)
         prompt = self.build_prompt(query, search_results)
-        answer, usage = self.llm(prompt)
-        return answer, usage
+        answer, usage = self.llm(prompt)  # ← must unpack here too
+        return answer, usage              # ← then re-return as tuple
 
 class DocumentRAG(RAGBase):
 
