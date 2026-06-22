@@ -5,3 +5,4 @@ jupyter>=1.1.1
 python-dotenv>=1.2.2
 gitsource==0.0.5
 sqlitesearch==0.1.1
+toyaikit==0.0.11
