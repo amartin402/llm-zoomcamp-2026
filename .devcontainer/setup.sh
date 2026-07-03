@@ -39,4 +39,38 @@ else
 fi
 
 # -------------------------------------------------------
+# 4. API KEYS — base64-encode for Kestra secrets
+# -------------------------------------------------------
+# Requires GEMINI_API_KEY / OPENAI_API_KEY / TAVILY_API_KEY to be set as
+# Codespaces secrets (Settings > Codespaces secrets on GitHub). This script
+# base64-encodes them and writes SECRET_* exports to ~/.bashrc, since Kestra
+# expects secrets as base64-encoded SECRET_-prefixed env vars.
+echo ">>> Preparing Kestra secret env vars..."
+
+encode_secret() {
+  local var_name="$1"
+  local secret_name="SECRET_${var_name}"
+  local value="${!var_name:-}"
+
+  if [ -z "$value" ]; then
+    echo ">>> Skipping $secret_name — $var_name not set (add it in Codespaces secrets if needed)."
+    return
+  fi
+
+  local encoded
+  encoded=$(echo -n "$value" | base64)
+
+  # Remove any previous export of this var, then re-add (keeps it idempotent
+  # and picks up updated key values on rebuild).
+  sed -i "/^export ${secret_name}=/d" ~/.bashrc 2>/dev/null || true
+  echo "export ${secret_name}=\"${encoded}\"" >> ~/.bashrc
+  echo ">>> Wrote $secret_name to ~/.bashrc"
+}
+
+encode_secret GEMINI_API_KEY   # required
+encode_secret OPENAI_API_KEY   # required for flow 3
+encode_secret TAVILY_API_KEY   # optional — flows 3, 5, 6
+
+# -------------------------------------------------------
 echo ">>> Devcontainer setup complete."
+echo ">>> Run 'source ~/.bashrc' (or open a new terminal) before 'docker compose up -d' so the SECRET_* vars are loaded."
