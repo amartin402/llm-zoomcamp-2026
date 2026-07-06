@@ -73,7 +73,7 @@ encode_secret SECRET_TAVILY_API_KEY   # optional — flows 3, 5, 6
 
 if [ -n "${SECRET_GEMINI_API_KEY:-}" ]; then
   sed -i '/^export GEMINI_API_KEY=/d' ~/.bashrc 2>/dev/null || true
-  echo "export GEMINI_API_KEY=\"$(echo -n "$SECRET_GEMINI_API_KEY" | base64 -d)\"" >> ~/.bashrc
+  echo "export GEMINI_API_KEY=\"${SECRET_GEMINI_API_KEY}\"" >> ~/.bashrc
 fi
 
 # -------------------------------------------------------
