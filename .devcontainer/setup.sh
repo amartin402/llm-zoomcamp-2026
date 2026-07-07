@@ -76,6 +76,11 @@ if [ -n "${SECRET_GEMINI_API_KEY:-}" ]; then
   echo "export GEMINI_API_KEY=\"${SECRET_GEMINI_API_KEY}\"" >> ~/.bashrc
 fi
 
+if [ -n "${SECRET_OPENAI_API_KEY:-}" ]; then
+  sed -i '/^export OPENAI_API_KEY=/d' ~/.bashrc 2>/dev/null || true
+  echo "export OPENAI_API_KEY=\"${SECRET_OPENAI_API_KEY}\"" >> ~/.bashrc
+fi
+
 # -------------------------------------------------------
 echo ">>> Devcontainer setup complete."
 echo ">>> Run 'source ~/.bashrc' (or open a new terminal) before 'docker compose up -d' so the SECRET_* vars are loaded."
