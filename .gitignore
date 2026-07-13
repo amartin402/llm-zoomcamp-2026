@@ -26,3 +26,7 @@ faq.db*
 *.db
 *.db-shm
 *.db-wal
+02-vector-search/models*
+04-evaluation/models*
+*.csv
+04-evaluation/data*
