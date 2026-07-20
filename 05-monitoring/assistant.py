@@ -38,3 +38,5 @@ if __name__ == "__main__":
     save_conversation(assistant.last_call, query, "llm-zoomcamp")
 
 # # =========================================================
+
+# make chat

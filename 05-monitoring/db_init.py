@@ -22,7 +22,7 @@ def init_db(drop=False):
                 cur.execute("DROP TABLE IF EXISTS llm_call_records")
 
             cur.execute("""
-                CREATE TABLE llm_call_records (
+                CREATE TABLE IF NOT EXISTS llm_call_records (
                     id SERIAL PRIMARY KEY,
                     question TEXT NOT NULL,
                     answer TEXT NOT NULL,
